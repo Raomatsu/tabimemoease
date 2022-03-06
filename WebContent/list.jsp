@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ page import='tabimemo.object.Location' %>
 <%@ page import='java.util.List' %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -11,13 +10,13 @@
 <title>登録地一覧</title>
 </head>
 <body>
+<a href="index.html" id="to_map_btn">マップに戻る </a>
+<br><br>
 
 <%
 String[] prefectures = (String[])request.getAttribute("allPrefecturesInTheArea");
 List<Location> locations = (List<Location>)request.getAttribute("AllLocationsInfInTheArea");
 %>
-
-
 
 <%-- 都道府県ごとに、1箇所につき1つのリストでスポットを表示 --%>
 
@@ -29,7 +28,7 @@ for(int i = 0; i < prefectures.length; i++){
 <%-- ①都道府県名表示 --%>
 
 <%= prefectures[i] %>
-
+<br>
 
 <%
 /** ②繰り返し locationsに入っているLocationインスタンスの内、areaプロパティ＝上位forで扱っている都道府県名
