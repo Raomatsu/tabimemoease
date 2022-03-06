@@ -97,3 +97,16 @@
 #add_location_btn{
 
 }
+
+#to_map_btn{
+
+}
+
+#to_list_btn{
+
+}
+
+label{
+    display: inline-block;
+    width: 100px;
+}
