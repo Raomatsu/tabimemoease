@@ -41,24 +41,19 @@ public class LocationDAO {
 		List<Location> locationList = new ArrayList<>();
 		try {
 			sql = "SELECT * FROM LOCATION WHERE AREA IN(\'" + area + "\')";
-//			sql = "INSERT INTO LOCATION(URL) VALUES('TEST2')";
-			System.out.println(sql);
 			pstmt = conn.prepareStatement(new String(sql));
 			pstmt.execute();
 			rset = pstmt.executeQuery();
 
-
 			while(rset.next()) {
 				String area_table = rset.getString("AREA");
 				String prefecture = rset.getString("PREFECTURE");
-
 				String locationName = rset.getString("LOCATIONNAME");
 				String URL = rset.getNString("URL");
 				String comments = rset.getNString("COMMENTS");
-				System.out.println("取得テスト:" + comments);
 
 				Location location = new Location(area_table,prefecture,locationName,URL,comments);
-//				System.out.println(location.getPrefecture());
+
 				locationList.add(location);
 
 			}
@@ -76,6 +71,33 @@ public class LocationDAO {
 			}
 		}
 		return locationList;
+
+	}
+
+	//行きたい場所追加メソッド
+	public 	void addLocation(String area,String prefecture,String locationName,String URL,String comments){
+		try {
+			//add.jspで入力された情報をレコードとして追加
+			sql = "INSERT INTO LOCATION (AREA,PREFECTURE,LOCATIONNAME,URL,COMMENTS) VALUE(\'"
+					+ area + "\', \'"
+					+ prefecture + "\', \'"
+					+ locationName + "\', \'"
+					+ URL + "\', \'"
+					+ comments + "\')";
+			pstmt = conn.prepareStatement(new String(sql));
+			pstmt.execute();
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rset.close();
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
 	}
 }
